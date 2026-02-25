@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import '@/App.css';
-import GalaxyBackground from '@/components/GalaxyBackground';
 import LandingPage from '@/pages/LandingPage';
 import Dashboard from '@/pages/Dashboard';
 import ChatPage from '@/pages/ChatPage';
@@ -14,7 +13,7 @@ import LearningPage from '@/pages/LearningPage';
 function App() {
   return (
     <div className="App">
-      <GalaxyBackground />
+      <div className="luxury-bg"></div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
