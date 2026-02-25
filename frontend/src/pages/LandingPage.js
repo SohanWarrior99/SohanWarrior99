@@ -33,7 +33,8 @@ const LandingPage = () => {
           
           <h1 
             className="text-7xl md:text-9xl font-black mb-6 tracking-tight text-glow"
-            style={{fontFamily: 'Playfair Display'}}\n            data-testid="hero-title"
+            style={{fontFamily: 'Playfair Display'}}
+            data-testid="hero-title"
           >
             <span className="gradient-text">P07</span>
             <br/>
@@ -41,7 +42,9 @@ const LandingPage = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto font-light" style={{lineHeight: '1.8'}} data-testid="hero-description">
-            Experience unparalleled artificial intelligence crafted for distinguished leaders,\n            government institutions, and visionary professionals.\n          </p>
+            Experience unparalleled artificial intelligence crafted for distinguished leaders,
+            government institutions, and visionary professionals.
+          </p>
           
           <div className="flex gap-6 justify-center">
             <button 
@@ -192,7 +195,8 @@ const LandingPage = () => {
             Contact Us
           </h2>
           <p className="text-xl text-gray-400 mb-12">
-            Connect with our distinguished team for inquiries and support\n          </p>
+            Connect with our distinguished team for inquiries and support
+          </p>
           
           <div className="max-w-2xl mx-auto space-y-6">
             <div className="floating-card p-8 flex items-center gap-6 hover-lift">
@@ -212,7 +216,8 @@ const LandingPage = () => {
                 Support & Inquiries
               </h3>
               <p className="text-gray-300">
-                For enterprise solutions, partnerships, or technical support, reach out to our dedicated team.\n                We respond to all inquiries within 24 hours.
+                For enterprise solutions, partnerships, or technical support, reach out to our dedicated team.
+                We respond to all inquiries within 24 hours.
               </p>
             </div>
           </div>
