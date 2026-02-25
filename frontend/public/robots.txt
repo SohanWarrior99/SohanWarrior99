@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ai-content-forge-69.preview.emergentagent.com/sitemap.xml
