@@ -76,6 +76,8 @@ const TemplatesPage = () => {
 };
 
 const TemplateCard = ({ template, index }) => {
+  const [showPreview, setShowPreview] = useState(false);
+  
   const getIcon = (category) => {
     switch(category) {
       case 'blog': return <FileText size={36} />;
@@ -85,24 +87,71 @@ const TemplateCard = ({ template, index }) => {
     }
   };
 
+  const handleDownload = () => {
+    const element = document.createElement('a');
+    const file = new Blob([template.content], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = `${template.name.replace(/\s+/g, '_')}.txt`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   return (
-    <div className="template-theme p-6 rounded-2xl cosmic-card group" data-testid={`template-${index}`}>
-      <div className="bg-gradient-to-br from-green-500 to-emerald-500 w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" data-testid={`template-${index}-icon`}>
-        {getIcon(template.category)}
+    <>
+      <div className="template-theme p-6 rounded-2xl cosmic-card group" data-testid={`template-${index}`}>
+        <div className="bg-gradient-to-br from-green-500 to-emerald-500 w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" data-testid={`template-${index}-icon`}>
+          {getIcon(template.category)}
+        </div>
+        <h3 className="text-2xl font-bold mb-3" style={{fontFamily: 'Chivo'}} data-testid={`template-${index}-name`}>
+          {template.name}
+        </h3>
+        <p className="text-gray-300 mb-6" data-testid={`template-${index}-description`}>{template.description}</p>
+        <div className="flex gap-3">
+          <button 
+            onClick={() => setShowPreview(true)}
+            className="flex-1 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl font-semibold hover:scale-105 transition shadow-lg shadow-green-500/50" 
+            data-testid={`template-${index}-preview-btn`}
+          >
+            Preview
+          </button>
+          <button 
+            onClick={handleDownload}
+            className="flex-1 py-3 cosmic-glow rounded-xl font-semibold hover:scale-105 transition" 
+            data-testid={`template-${index}-use-btn`}
+          >
+            Download
+          </button>
+        </div>
       </div>
-      <h3 className="text-2xl font-bold mb-3" style={{fontFamily: 'Chivo'}} data-testid={`template-${index}-name`}>
-        {template.name}
-      </h3>
-      <p className="text-gray-300 mb-6" data-testid={`template-${index}-description`}>{template.description}</p>
-      <div className="flex gap-3">
-        <button className="flex-1 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl font-semibold hover:scale-105 transition shadow-lg shadow-green-500/50" data-testid={`template-${index}-preview-btn`}>
-          Preview
-        </button>
-        <button className="flex-1 py-3 cosmic-glow rounded-xl font-semibold hover:scale-105 transition" data-testid={`template-${index}-use-btn`}>
-          Use
-        </button>
-      </div>
-    </div>
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-8" onClick={() => setShowPreview(false)}>
+          <div className="template-theme p-8 rounded-3xl max-w-4xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-3xl font-bold glow-text" style={{fontFamily: 'Chivo'}}>{template.name}</h2>
+              <button onClick={() => setShowPreview(false)} className="text-gray-400 hover:text-white text-2xl">×</button>
+            </div>
+            <pre className="text-gray-300 whitespace-pre-wrap bg-black/30 p-6 rounded-xl">{template.content}</pre>
+            <div className="mt-6 flex gap-4">
+              <button 
+                onClick={handleDownload}
+                className="flex-1 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl font-semibold hover:scale-105 transition shadow-lg shadow-green-500/50"
+              >
+                Download Template
+              </button>
+              <button 
+                onClick={() => setShowPreview(false)}
+                className="flex-1 py-3 cosmic-glow rounded-xl font-semibold hover:scale-105 transition"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
