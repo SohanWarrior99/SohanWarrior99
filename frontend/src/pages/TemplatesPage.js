@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, FileText, Globe, Presentation, Sparkles } from 'lucide-react';
+import { ArrowLeft, FileText, Globe, Presentation, Sparkles, Download, X } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -11,6 +11,7 @@ const TemplatesPage = () => {
   const [templates, setTemplates] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [loading, setLoading] = useState(true);
+  const [previewTemplate, setPreviewTemplate] = useState(null);
 
   useEffect(() => {
     loadTemplates();
@@ -34,6 +35,29 @@ const TemplatesPage = () => {
 
   const categories = ['all', 'blog', 'website', 'presentation'];
 
+  const handlePreview = (template) => {
+    setPreviewTemplate(template);
+  };
+
+  const handleDownload = (template) => {
+    const element = document.createElement('a');
+    const file = new Blob([template.content], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = `${template.name.replace(/\s+/g, '_')}.txt`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
+  const getIcon = (category) => {
+    switch(category) {
+      case 'blog': return <FileText size={36} />;
+      case 'website': return <Globe size={36} />;
+      case 'presentation': return <Presentation size={36} />;
+      default: return <FileText size={36} />;
+    }
+  };
+
   return (
     <div className="min-h-screen text-white p-8 relative" data-testid="templates-page">
       <div className="max-w-7xl mx-auto">
@@ -56,8 +80,7 @@ const TemplatesPage = () => {
             >
               {cat.charAt(0).toUpperCase() + cat.slice(1)}
             </button>
-          ))}
-        </div>
+          ))}\n        </div>
 
         {loading ? (
           <div className="text-center py-20" data-testid="loading-indicator">
@@ -66,84 +89,81 @@ const TemplatesPage = () => {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="templates-grid">
             {filteredTemplates.map((template, idx) => (
-              <TemplateCard key={template.id} template={template} index={idx} />
+              <div key={template.id} className="template-theme p-6 rounded-2xl cosmic-card group" data-testid={`template-${idx}`}>
+                <div className="bg-gradient-to-br from-green-500 to-emerald-500 w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" data-testid={`template-${idx}-icon`}>
+                  {getIcon(template.category)}
+                </div>
+                <h3 className="text-2xl font-bold mb-3" style={{fontFamily: 'Chivo'}} data-testid={`template-${idx}-name`}>
+                  {template.name}
+                </h3>
+                <p className="text-gray-300 mb-6" data-testid={`template-${idx}-description`}>{template.description}</p>
+                <div className="flex gap-3">
+                  <button 
+                    onClick={() => handlePreview(template)}
+                    className="flex-1 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl font-semibold hover:scale-105 transition shadow-lg shadow-green-500/50" 
+                    data-testid={`template-${idx}-preview-btn`}
+                  >
+                    Preview
+                  </button>
+                  <button 
+                    onClick={() => handleDownload(template)}
+                    className="flex-1 py-3 cosmic-glow rounded-xl font-semibold hover:scale-105 transition" 
+                    data-testid={`template-${idx}-use-btn`}
+                  >
+                    Download
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         )}
       </div>
-    </div>
-  );
-};
-
-const TemplateCard = ({ template, index }) => {
-  const [showPreview, setShowPreview] = useState(false);
-  
-  const getIcon = (category) => {
-    switch(category) {
-      case 'blog': return <FileText size={36} />;
-      case 'website': return <Globe size={36} />;
-      case 'presentation': return <Presentation size={36} />;
-      default: return <FileText size={36} />;
-    }
-  };
-
-  const handleDownload = () => {
-    const element = document.createElement('a');
-    const file = new Blob([template.content], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
-    element.download = `${template.name.replace(/\s+/g, '_')}.txt`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
-
-  return (
-    <>
-      <div className="template-theme p-6 rounded-2xl cosmic-card group" data-testid={`template-${index}`}>
-        <div className="bg-gradient-to-br from-green-500 to-emerald-500 w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" data-testid={`template-${index}-icon`}>
-          {getIcon(template.category)}
-        </div>
-        <h3 className="text-2xl font-bold mb-3" style={{fontFamily: 'Chivo'}} data-testid={`template-${index}-name`}>
-          {template.name}
-        </h3>
-        <p className="text-gray-300 mb-6" data-testid={`template-${index}-description`}>{template.description}</p>
-        <div className="flex gap-3">
-          <button 
-            onClick={() => setShowPreview(true)}
-            className="flex-1 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl font-semibold hover:scale-105 transition shadow-lg shadow-green-500/50" 
-            data-testid={`template-${index}-preview-btn`}
-          >
-            Preview
-          </button>
-          <button 
-            onClick={handleDownload}
-            className="flex-1 py-3 cosmic-glow rounded-xl font-semibold hover:scale-105 transition" 
-            data-testid={`template-${index}-use-btn`}
-          >
-            Download
-          </button>
-        </div>
-      </div>
 
       {/* Preview Modal */}
-      {showPreview && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-8" onClick={() => setShowPreview(false)}>
-          <div className="template-theme p-8 rounded-3xl max-w-4xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+      {previewTemplate && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '2rem'
+          }}
+          onClick={() => setPreviewTemplate(null)}
+        >
+          <div 
+            className="template-theme p-8 rounded-3xl max-w-4xl w-full max-h-[80vh] overflow-y-auto"
+            style={{maxHeight: '80vh'}}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-3xl font-bold glow-text" style={{fontFamily: 'Chivo'}}>{template.name}</h2>
-              <button onClick={() => setShowPreview(false)} className="text-gray-400 hover:text-white text-2xl">×</button>
+              <h2 className="text-3xl font-bold glow-text" style={{fontFamily: 'Chivo'}}>{previewTemplate.name}</h2>
+              <button 
+                onClick={() => setPreviewTemplate(null)} 
+                className="text-gray-400 hover:text-white transition hover:scale-110"
+              >
+                <X size={32} />
+              </button>
             </div>
-            <pre className="text-gray-300 whitespace-pre-wrap bg-black/30 p-6 rounded-xl">{template.content}</pre>
+            <pre className="text-gray-300 whitespace-pre-wrap bg-black/40 p-6 rounded-xl border border-green-500/30">{previewTemplate.content}</pre>
             <div className="mt-6 flex gap-4">
               <button 
-                onClick={handleDownload}
-                className="flex-1 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl font-semibold hover:scale-105 transition shadow-lg shadow-green-500/50"
+                onClick={() => handleDownload(previewTemplate)}
+                className="flex-1 py-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl font-bold hover:scale-105 transition shadow-lg shadow-green-500/50 flex items-center justify-center gap-2"
               >
+                <Download size={20} />
                 Download Template
               </button>
               <button 
-                onClick={() => setShowPreview(false)}
-                className="flex-1 py-3 cosmic-glow rounded-xl font-semibold hover:scale-105 transition"
+                onClick={() => setPreviewTemplate(null)}
+                className="flex-1 py-4 cosmic-glow rounded-xl font-bold hover:scale-105 transition"
               >
                 Close
               </button>
@@ -151,7 +171,7 @@ const TemplateCard = ({ template, index }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
