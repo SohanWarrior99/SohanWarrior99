@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Video as VideoIcon, Download } from 'lucide-react';
+import { ArrowLeft, Video as VideoIcon, Download, Rocket } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -32,62 +32,64 @@ const VideoPage = () => {
       }
     } catch (error) {
       console.error('Video generation error:', error);
-      alert('Failed to generate video. Please try again.');
+      alert('Failed to generate video. Please check your Universal Key balance.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-8" data-testid="video-page">
+    <div className="min-h-screen text-white p-8 relative" data-testid="video-page">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <button onClick={() => navigate('/dashboard')} className="hover:text-blue-500 transition" data-testid="back-btn">
+          <button onClick={() => navigate('/dashboard')} className="hover:text-red-400 transition hover:scale-110" data-testid="back-btn">
             <ArrowLeft size={24} />
           </button>
-          <h1 className="text-4xl font-bold" style={{fontFamily: 'Chivo'}} data-testid="page-title">Video Generation (Sora 2)</h1>
+          <h1 className="text-5xl font-bold glow-text flex items-center gap-3" style={{fontFamily: 'Chivo'}} data-testid="page-title">
+            <VideoIcon size={48} /> Video Generation (Sora 2)
+          </h1>
         </div>
 
-        <div className="glass-effect p-8 rounded-2xl mb-8">
+        <div className="video-theme p-8 rounded-3xl mb-8 cosmic-card">
           <input
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Describe the video you want to create..."
-            className="w-full bg-gray-900 border border-white/10 rounded-lg px-6 py-4 outline-none focus:border-blue-500 transition mb-4"
+            placeholder="Describe the stellar video you want to create..."
+            className="w-full cosmic-glow rounded-xl px-6 py-5 outline-none focus:ring-2 focus:ring-red-500 transition mb-6 text-lg bg-transparent"
             disabled={loading}
             data-testid="video-prompt-input"
           />
 
-          <div className="grid md:grid-cols-2 gap-4 mb-4">
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div>
-              <label className="block text-sm text-gray-400 mb-2" data-testid="duration-label">Duration</label>
+              <label className="block text-sm text-gray-300 mb-2 font-semibold" data-testid="duration-label">⏱️ Duration</label>
               <select
                 value={duration}
                 onChange={(e) => setDuration(Number(e.target.value))}
-                className="w-full bg-gray-900 border border-white/10 rounded-lg px-4 py-3 outline-none focus:border-blue-500 transition"
+                className="w-full cosmic-glow rounded-xl px-4 py-4 outline-none focus:ring-2 focus:ring-red-500 transition bg-transparent cursor-pointer"
                 disabled={loading}
                 data-testid="duration-select"
               >
-                <option value={4}>4 seconds</option>
-                <option value={8}>8 seconds</option>
-                <option value={12}>12 seconds</option>
+                <option value={4} className="bg-gray-900">4 seconds</option>
+                <option value={8} className="bg-gray-900">8 seconds</option>
+                <option value={12} className="bg-gray-900">12 seconds</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-sm text-gray-400 mb-2" data-testid="size-label">Resolution</label>
+              <label className="block text-sm text-gray-300 mb-2 font-semibold" data-testid="size-label">📐 Resolution</label>
               <select
                 value={size}
                 onChange={(e) => setSize(e.target.value)}
-                className="w-full bg-gray-900 border border-white/10 rounded-lg px-4 py-3 outline-none focus:border-blue-500 transition"
+                className="w-full cosmic-glow rounded-xl px-4 py-4 outline-none focus:ring-2 focus:ring-red-500 transition bg-transparent cursor-pointer"
                 disabled={loading}
                 data-testid="size-select"
               >
-                <option value="1280x720">1280x720 (HD)</option>
-                <option value="1792x1024">1792x1024 (Wide)</option>
-                <option value="1024x1792">1024x1792 (Portrait)</option>
-                <option value="1024x1024">1024x1024 (Square)</option>
+                <option value="1280x720" className="bg-gray-900">1280x720 (HD)</option>
+                <option value="1792x1024" className="bg-gray-900">1792x1024 (Wide)</option>
+                <option value="1024x1792" className="bg-gray-900">1024x1792 (Portrait)</option>
+                <option value="1024x1024" className="bg-gray-900">1024x1024 (Square)</option>
               </select>
             </div>
           </div>
@@ -95,37 +97,40 @@ const VideoPage = () => {
           <button
             onClick={generateVideo}
             disabled={loading || !prompt.trim()}
-            className="btn-primary w-full py-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full py-5 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl font-bold text-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 hover:scale-105 transition shadow-lg shadow-red-500/50"
             data-testid="generate-btn"
           >
-            <VideoIcon size={20} />
-            Generate Video
+            <Rocket size={24} />
+            Generate Cosmic Video
           </button>
         </div>
 
         {loading && (
-          <div className="glass-effect p-20 rounded-2xl text-center" data-testid="loading-indicator">
-            <div className="inline-block w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <p className="text-xl text-gray-400">Generating your video... This may take a few minutes</p>
+          <div className="video-theme p-20 rounded-3xl text-center cosmic-card" data-testid="loading-indicator">
+            <div className="inline-block w-20 h-20 border-4 border-red-500 border-t-transparent rounded-full animate-spin mb-6"></div>
+            <p className="text-2xl font-bold glow-text">Creating your stellar video...</p>
+            <p className="text-gray-400 mt-2">This may take several minutes</p>
           </div>
         )}
 
         {videoId && (
-          <div className="glass-effect p-8 rounded-2xl" data-testid="video-result">
+          <div className="video-theme p-8 rounded-3xl cosmic-card" data-testid="video-result">
             <video
               controls
-              className="w-full rounded-lg mb-4"
+              className="w-full rounded-2xl mb-6 shadow-2xl shadow-red-500/30"
               src={`${API}/video/download/${videoId}`}
               data-testid="generated-video"
             >
               Your browser does not support video playback.
             </video>
             <div className="flex justify-between items-center">
-              <p className="text-gray-400" data-testid="video-prompt">{prompt}</p>
+              <p className="text-gray-300 flex-1" data-testid="video-prompt">
+                <VideoIcon className="inline" size={16} /> {prompt}
+              </p>
               <a
                 href={`${API}/video/download/${videoId}`}
-                download={`video-${videoId}.mp4`}
-                className="btn-primary flex items-center gap-2"
+                download={`cosmic-video-${videoId}.mp4`}
+                className="px-6 py-3 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl font-bold flex items-center gap-2 hover:scale-105 transition shadow-lg shadow-red-500/50"
                 data-testid="download-btn"
               >
                 <Download size={20} />
