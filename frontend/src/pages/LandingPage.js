@@ -126,6 +126,18 @@ const LandingPage = () => {
           </button>
         </div>
       </div>
+
+      {/* Footer - About */}
+      <div className="max-w-7xl mx-auto px-8 py-12 border-t border-white/10">
+        <div className="text-center">
+          <p className="text-gray-400 mb-2">
+            Founded by <span className="text-blue-500 font-bold">SOHAN MAHAPATRA</span>
+          </p>
+          <p className="text-gray-500 text-sm">
+            Co-founded with Emergent Team • Professional AI Suite for Global Authorities
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
