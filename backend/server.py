@@ -390,21 +390,114 @@ async def initialize_data():
     default_tutorials = [
         Tutorial(
             title="Getting Started with P07 Chat",
-            description="Learn how to use P07's AI chat effectively",
-            content="P07 Chat combines OpenAI GPT-5.2 and Claude Sonnet 4.5 to provide intelligent responses...",
+            description="Master the art of AI conversations with P07's dual-model chat system",
+            content="""HOW TO USE P07 CHAT EFFECTIVELY:
+
+1. SELECT YOUR AI MODEL: Choose between GPT-5.2 (for creative and detailed responses) or Claude Sonnet 4.5 (for analytical and precise answers) using the model selector buttons at the top.
+
+2. ASK CLEAR QUESTIONS: For best results, be specific with your queries. Instead of "tell me about physics," ask "explain Newton's laws of motion with real-world examples."
+
+3. REQUEST FORMATTED NOTES: When you need study materials or documentation, ask P07 to "give me notes on [topic]" and it will provide structured, formatted educational content with headings, bullet points, and clear explanations.
+
+4. UTILIZE CONVERSATION HISTORY: P07 remembers your chat history within each session, so you can build upon previous questions and have natural, flowing conversations.
+
+5. SWITCH MODELS FOR DIFFERENT TASKS: Use GPT-5.2 for creative writing, brainstorming, and detailed explanations. Use Claude 4.5 for code review, logical analysis, and fact-checking.
+
+TIPS FOR MAXIMUM PRODUCTIVITY:
+- Start new sessions for different topics to keep conversations organized
+- Ask follow-up questions to dig deeper into complex subjects
+- Request examples, analogies, or case studies for better understanding
+- Use P07 for summarizing long documents or articles
+- Ask for step-by-step guides when learning new skills""",
             category="chat"
         ),
         Tutorial(
             title="Creating Images with SP07",
-            description="Master image generation with SP07",
-            content="SP07 uses Gemini Nano Banana for high-quality image generation. Simply describe what you want...",
+            description="Generate stunning, high-resolution images using Gemini Nano Banana",
+            content="""HOW TO USE SP07 IMAGE GENERATION:
+
+1. WRITE DESCRIPTIVE PROMPTS: The more detailed your description, the better your image. Instead of "a cat," write "a majestic Persian cat with golden fur, sitting on a velvet cushion in a Victorian-style room with soft natural lighting."
+
+2. SPECIFY STYLE AND MOOD: Include artistic style in your prompt - "photorealistic," "oil painting style," "minimalist digital art," "cinematic," "vintage photograph," etc.
+
+3. INCLUDE COMPOSITION DETAILS: Mention camera angles ("wide-angle shot," "close-up portrait"), lighting ("golden hour," "dramatic shadows"), and perspective to guide the generation.
+
+4. BE PATIENT WITH GENERATION: Image creation takes a few moments. Wait for the complete generation - the result will be worth it with ultra-high resolution and realistic details.
+
+5. DOWNLOAD AND REFINE: Once generated, download your image. If not perfect, create a new prompt with adjusted details based on what you learned.
+
+EXAMPLE PROMPTS THAT WORK WELL:
+- "A futuristic city skyline at sunset, with flying cars and neon lights, cyberpunk style, highly detailed"
+- "Professional headshot of a business executive, studio lighting, neutral background, photorealistic"
+- "Abstract geometric pattern in gold and navy blue, luxury design, 4K quality"
+- "Cozy coffee shop interior, warm lighting, wooden furniture, people working on laptops, wide angle"
+
+AVOID:
+- Vague prompts like "make something cool"
+- Requesting copyrighted characters or logos
+- Too many conflicting style directions in one prompt""",
             category="image"
         ),
         Tutorial(
             title="Document Generation with FP07",
-            description="Create professional documents instantly",
-            content="FP07 can generate PDFs, PowerPoint presentations, and Excel spreadsheets...",
+            description="Create professional PDFs, PowerPoints, and Excel files instantly",
+            content="""HOW TO USE FP07 DOCUMENT GENERATOR:
+
+1. CHOOSE YOUR DOCUMENT TYPE FIRST: Before writing content, select whether you need a PDF (for reports/documents), PPTX (for presentations), or XLSX (for spreadsheets/data tables) to format your content appropriately.
+
+2. CRAFT A CLEAR TITLE: Your document title should be concise and descriptive. This becomes the filename and the main heading. Examples: "Q4 2026 Marketing Report," "Product Launch Presentation," "Monthly Sales Data."
+
+3. STRUCTURE YOUR CONTENT PROPERLY: 
+   - For PDFs: Write in paragraphs with clear sections
+   - For PPTX: Use bullet points and short phrases for each slide point
+   - For XLSX: Organize data in rows and columns format
+
+4. GENERATE AND REVIEW: Click Generate, wait a few seconds, then preview your document. FP07 formats it professionally with proper styling and layout.
+
+5. DOWNLOAD IN THE RIGHT FORMAT: Use the download button to save your document. Open it in the appropriate software (PDF Reader, PowerPoint, Excel) to verify and make final adjustments if needed.
+
+CONTENT FORMATTING TIPS:
+- Use line breaks to separate sections
+- Start main points with capital letters
+- For presentations: Keep each point under 15 words
+- For spreadsheets: Use commas to separate column data
+
+BEST PRACTICES:
+- Keep titles under 50 characters
+- Break long content into sections with headings
+- Use professional language for business documents
+- Include dates and version numbers in titles
+- Proofread before generating to avoid regeneration""",
             category="documents"
+        ),
+        Tutorial(
+            title="Mastering ChatGPT & Gemini for Work",
+            description="Learn professional AI tools usage strategies from P07 experts",
+            content="""HOW TO USE CHATGPT & GEMINI EFFICIENTLY AT WORK:
+
+1. UNDERSTAND EACH AI'S STRENGTHS: ChatGPT excels at creative writing, coding, and explanations. Gemini is better for research, fact-checking, and Google-integrated tasks. Use the right tool for the right job.
+
+2. CREATE EFFECTIVE PROMPTS: Start with context ("I am a marketing manager working on..."), then state your request clearly ("create a 30-day social media campaign for..."), and specify format ("in table format with dates and post ideas").
+
+3. USE CONVERSATION CHAINS: Break complex tasks into steps. Start broad, then narrow down with follow-up questions. Example: First ask for strategy overview, then request specific tactics, finally get implementation details.
+
+4. MAINTAIN CONVERSATION CONTEXT: Both AIs remember your chat history. Reference previous answers with "based on what you just said" or "expand on point 3" to build comprehensive solutions.
+
+5. LEVERAGE FOR DAILY WORKFLOWS: Use AI for email drafting, meeting notes summarization, report writing, data analysis, brainstorming, research, and learning new skills. Integrate into your routine tasks.
+
+WORKPLACE APPLICATIONS:
+- Email responses: "Write a professional email declining this meeting politely"
+- Reports: "Summarize these sales figures into a 2-paragraph executive summary"
+- Learning: "Explain blockchain technology as if I'm explaining to my CEO"
+- Analysis: "What are the pros and cons of this marketing strategy?"
+- Content: "Create 10 LinkedIn post ideas about [your industry]"
+
+PRODUCTIVITY HACKS:
+- Save your best prompts as templates
+- Use AI to critique your own work before submitting
+- Ask for multiple versions to choose from
+- Get AI to simplify complex jargon for presentations""",
+            category="chat"
         )
     ]
     
