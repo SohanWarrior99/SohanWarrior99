@@ -364,22 +364,265 @@ async def initialize_data():
     # Add default templates
     default_templates = [
         Template(
-            name="Professional Blog Post",
+            name="Professional Blog Post Format",
             category="blog",
-            description="A clean, professional blog post template",
-            content="# Blog Title\n\nYour content here..."
+            description="Complete structure for writing engaging blog posts",
+            content="""BLOG POST FORMAT TEMPLATE
+
+[CATCHY TITLE - Make it attention-grabbing and SEO-friendly]
+
+INTRODUCTION (2-3 paragraphs)
+- Hook: Start with a question, statistic, or bold statement
+- Context: Explain why this topic matters
+- Preview: Briefly mention what you'll cover
+
+MAIN CONTENT
+
+Section 1: [First Main Point]
+- Explanation of the concept
+- Real-world example or case study
+- Key takeaway in bullet form
+
+Section 2: [Second Main Point]
+- Detailed breakdown
+- Supporting data or quotes
+- Visual description (where image would go)
+
+Section 3: [Third Main Point]
+- Actionable advice
+- Step-by-step if applicable
+- Common mistakes to avoid
+
+PRACTICAL APPLICATION
+- How readers can implement this today
+- Tools or resources mentioned
+- Quick wins they can achieve
+
+CONCLUSION
+- Recap main points briefly
+- Call-to-action (comment, share, subscribe)
+- Future post teaser or related topic
+
+AUTHOR BIO
+[Your name and credentials]
+[Brief description of expertise]
+[Social media or website link]
+
+---
+FORMATTING TIPS:
+✓ Use headings and subheadings
+✓ Keep paragraphs 3-4 sentences max
+✓ Include bullet points for scannability
+✓ Add images every 300-400 words
+✓ Aim for 1000-2000 words total"""
         ),
         Template(
-            name="Business Website",
+            name="Business Website Structure",
             category="website",
-            description="Modern business website template",
-            content="<!DOCTYPE html><html><body><h1>Welcome</h1></body></html>"
+            description="Modern responsive website layout format",
+            content="""WEBSITE STRUCTURE TEMPLATE
+
+HEADER SECTION
+- Logo (top left)
+- Navigation Menu: Home | About | Services | Portfolio | Contact
+- CTA Button (top right): "Get Started" or "Free Consultation"
+
+HERO SECTION (Above the fold)
+- Compelling Headline (6-10 words)
+- Subheadline explaining value proposition
+- Primary CTA button
+- Hero image or video background
+- Trust badges or client logos below
+
+FEATURES / SERVICES SECTION
+Title: "What We Offer" or "Our Services"
+
+[Service 1]
+Icon/Image
+Service Name
+2-3 sentence description
+"Learn More" link
+
+[Service 2]
+Icon/Image
+Service Name
+Description
+Link
+
+[Service 3]
+Icon/Image
+Service Name
+Description
+Link
+
+ABOUT SECTION
+- Company/personal story (3-4 paragraphs)
+- Mission statement
+- Team photo or founder image
+- Stats: Years in business, Clients served, Projects completed
+
+TESTIMONIALS / SOCIAL PROOF
+Client 1: Quote + Name + Company
+Client 2: Quote + Name + Company
+Client 3: Quote + Name + Company
+
+CTA SECTION
+- Strong headline: "Ready to Get Started?"
+- Brief text reinforcing value
+- Form or button to contact
+
+FOOTER
+Column 1: Company info & logo
+Column 2: Quick links
+Column 3: Contact information
+Column 4: Social media icons
+Copyright notice at bottom
+
+---
+PAGE TYPES TO CREATE:
+✓ Home (this structure)
+✓ About Us
+✓ Services/Products
+✓ Portfolio/Case Studies
+✓ Blog
+✓ Contact"""
         ),
         Template(
-            name="Marketing Presentation",
+            name="Business Presentation Format",
             category="presentation",
-            description="Professional marketing presentation",
-            content="Slide 1: Introduction\nSlide 2: Problem\nSlide 3: Solution"
+            description="Professional PowerPoint/Keynote structure",
+            content="""PRESENTATION FORMAT TEMPLATE
+
+SLIDE 1: TITLE SLIDE
+- Presentation Title (large, bold)
+- Subtitle or tagline
+- Your name and title
+- Company logo
+- Date
+
+SLIDE 2: AGENDA
+Title: "Today's Discussion"
+- Point 1: [Topic]
+- Point 2: [Topic]
+- Point 3: [Topic]
+- Point 4: Q&A
+(Keep to 4-5 items max)
+
+SLIDE 3: PROBLEM STATEMENT
+Title: "The Challenge"
+- Current situation overview
+- Pain points (3-4 bullets)
+- Impact on business/users
+- Visual: chart or image showing problem
+
+SLIDE 4: SOLUTION OVERVIEW
+Title: "Our Approach"
+- High-level solution
+- Key benefits (3 main points)
+- Unique value proposition
+- Visual: diagram or infographic
+
+SLIDES 5-8: DETAILED BREAKDOWN
+Each slide covers ONE main point:
+- Clear heading
+- 3-5 bullet points
+- Supporting visual
+- Keep text minimal
+
+SLIDE 9: CASE STUDY / PROOF
+Title: "Success Story" or "Results"
+- Before/After comparison
+- Key metrics and improvements
+- Client quote (if applicable)
+- Visual evidence
+
+SLIDE 10: NEXT STEPS
+Title: "Moving Forward"
+- Action items
+- Timeline
+- Resources needed
+- Decision points
+
+SLIDE 11: CALL TO ACTION
+- Clear next step
+- Contact information
+- Meeting follow-up details
+
+SLIDE 12: THANK YOU
+- "Thank You" or "Questions?"
+- Your contact details
+- Company website/social media
+- Offer to send presentation deck
+
+---
+DESIGN PRINCIPLES:
+✓ One idea per slide
+✓ Max 6 bullets per slide
+✓ Use high-quality images
+✓ Consistent fonts (2 max)
+✓ Brand colors throughout
+✓ White space is good!
+✓ 30-60 second per slide rule"""
+        ),
+        Template(
+            name="Data Spreadsheet Format",
+            category="website",
+            description="Excel/Sheets organization template",
+            content="""SPREADSHEET FORMAT TEMPLATE
+
+SHEET 1: SUMMARY DASHBOARD
+Row 1: Title and Date
+Row 3-5: Key Metrics Summary
+- Total Revenue
+- Total Expenses  
+- Net Profit
+- Growth %
+
+Row 7: Monthly Comparison Chart Reference
+Row 9-20: Quick Stats Table
+
+SHEET 2: DETAILED DATA
+Column Headers (Row 1):
+A: Date
+B: Category
+C: Description
+D: Amount
+E: Payment Method
+F: Status
+G: Notes
+
+Data Rows:
+- One transaction per row
+- Consistent date format
+- Clear categorization
+- Numerical data right-aligned
+
+Row (Last): TOTALS
+Sum formulas for numerical columns
+
+SHEET 3: MONTHLY BREAKDOWN
+Table Structure:
+         Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec  TOTAL
+Income   XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  =SUM
+Expense  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  =SUM
+Profit   XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  =SUM
+
+SHEET 4: CHARTS & VISUALS
+- Revenue Trend (Line Chart)
+- Expense Breakdown (Pie Chart)
+- Category Comparison (Bar Chart)
+- Year-over-Year Growth
+
+---
+FORMATTING BEST PRACTICES:
+✓ Freeze top row and first column
+✓ Use consistent number formats
+✓ Color-code headers
+✓ Apply data validation
+✓ Add filters to header row
+✓ Protect formula cells
+✓ Document formulas in comments
+✓ Create named ranges for key data"""
         )
     ]
     
