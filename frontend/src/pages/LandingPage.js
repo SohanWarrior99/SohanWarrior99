@@ -237,4 +237,24 @@ const LandingPage = () => {
       </div>
     </div>
   );
-};\n\nconst FeatureCard = ({ icon, title, description, delay, testId }) => (\n  <div \n    className=\"floating-card p-10 hover-lift animate-float\"\n    style={{animationDelay: delay}}\n    data-testid={testId}\n  >\n    <div className=\"w-20 h-20 rounded-2xl bg-gradient-to-br from-yellow-600/20 to-yellow-900/20 flex items-center justify-center mb-6 gold-border\" data-testid={`${testId}-icon`}>\n      <div className=\"gold-accent\">\n        {icon}\n      </div>\n    </div>\n    <h3 className=\"text-2xl font-bold mb-4 gold-accent\" style={{fontFamily: 'Playfair Display'}} data-testid={`${testId}-title`}>\n      {title}\n    </h3>\n    <p className=\"text-gray-400 leading-relaxed\" data-testid={`${testId}-description`}>{description}</p>\n  </div>\n);\n\nexport default LandingPage;
+};
+
+const FeatureCard = ({ icon, title, description, delay, testId }) => (
+  <div 
+    className="floating-card p-10 hover-lift animate-float"
+    style={{animationDelay: delay}}
+    data-testid={testId}
+  >
+    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-yellow-600/20 to-yellow-900/20 flex items-center justify-center mb-6 gold-border" data-testid={`${testId}-icon`}>
+      <div className="gold-accent">
+        {icon}
+      </div>
+    </div>
+    <h3 className="text-2xl font-bold mb-4 gold-accent" style={{fontFamily: 'Playfair Display'}} data-testid={`${testId}-title`}>
+      {title}
+    </h3>
+    <p className="text-gray-400 leading-relaxed" data-testid={`${testId}-description`}>{description}</p>
+  </div>
+);
+
+export default LandingPage;
