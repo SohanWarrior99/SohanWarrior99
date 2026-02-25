@@ -58,13 +58,15 @@ const ChatPage = () => {
 
   return (
     <div className="min-h-screen text-white flex flex-col relative" data-testid="chat-page">
+      <div className="luxury-bg"></div>
+      
       {/* Header */}
-      <div className="chat-theme px-8 py-4 flex items-center justify-between border-b border-blue-500/30 relative z-10">
+      <div className="floating-card mx-4 mt-4 px-8 py-4 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/dashboard')} className="hover:text-blue-400 transition hover:scale-110" data-testid="back-btn">
+          <button onClick={() => navigate('/dashboard')} className="hover:text-yellow-500 transition hover:scale-110" data-testid="back-btn">
             <ArrowLeft size={24} />
           </button>
-          <h1 className="text-3xl font-bold glow-text flex items-center gap-2" style={{fontFamily: 'Chivo'}} data-testid="chat-title">
+          <h1 className="text-3xl font-bold gold-accent flex items-center gap-3" style={{fontFamily: 'Playfair Display'}} data-testid="chat-title">
             <Bot size={32} /> P07 Chat
           </h1>
         </div>
@@ -72,31 +74,31 @@ const ChatPage = () => {
         <div className="flex gap-3">
           <button
             onClick={() => setModel('openai')}
-            className={`px-6 py-3 rounded-xl transition font-semibold ${model === 'openai' ? 'bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg shadow-blue-500/50' : 'cosmic-glow hover:scale-105'}`}
+            className={`px-6 py-3 rounded-xl transition font-semibold ${model === 'openai' ? 'btn-luxury' : 'btn-secondary-luxury'}`}
             data-testid="model-openai-btn"
           >
-            🚀 GPT-5.2
+            GPT-5.2
           </button>
           <button
             onClick={() => setModel('claude')}
-            className={`px-6 py-3 rounded-xl transition font-semibold ${model === 'claude' ? 'bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg shadow-blue-500/50' : 'cosmic-glow hover:scale-105'}`}
+            className={`px-6 py-3 rounded-xl transition font-semibold ${model === 'claude' ? 'btn-luxury' : 'btn-secondary-luxury'}`}
             data-testid="model-claude-btn"
           >
-            🌟 Claude 4.5
+            Claude 4.5
           </button>
         </div>
       </div>
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-8 py-6 relative" data-testid="messages-container">
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="max-w-4xl mx-auto space-y-6 relative z-10">
           {messages.length === 0 && (
-            <div className="text-center py-20" data-testid="empty-state">
-              <div className="inline-block p-8 cosmic-glow rounded-full mb-6">
-                <Bot size={64} className="text-blue-400" />
+            <div className="text-center py-20 floating-card p-12" data-testid="empty-state">
+              <div className="inline-block p-8 mb-6 rounded-full gold-border bg-gradient-to-br from-yellow-600/10 to-yellow-900/10">
+                <Bot size={64} className="gold-accent" />
               </div>
-              <h2 className="text-3xl font-bold mb-3 glow-text" style={{fontFamily: 'Chivo'}}>Welcome to P07 Chat</h2>
-              <p className="text-gray-400 text-lg">Start a conversation with our advanced AI from the cosmos</p>
+              <h2 className="text-4xl font-bold mb-3 gradient-text" style={{fontFamily: 'Playfair Display'}}>Welcome to P07 Chat</h2>
+              <p className="text-gray-400 text-xl">Experience sophisticated AI conversations</p>
             </div>
           )}
           
@@ -109,22 +111,20 @@ const ChatPage = () => {
               <div
                 className={`max-w-2xl px-6 py-4 rounded-2xl ${
                   msg.role === 'user'
-                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg shadow-blue-500/30'
-                    : 'cosmic-glow chat-theme'
+                    ? 'bg-gradient-to-r from-yellow-600 to-yellow-800 shadow-lg'
+                    : 'floating-card'
                 }`}
               >
-                <p className="whitespace-pre-wrap" data-testid={`message-${idx}-content`}>{msg.content}</p>
+                <p className="whitespace-pre-wrap leading-relaxed" data-testid={`message-${idx}-content`}>{msg.content}</p>
               </div>
             </div>
           ))}
           
           {loading && (
             <div className="flex justify-start" data-testid="loading-indicator">
-              <div className="cosmic-glow chat-theme px-6 py-4 rounded-2xl">
-                <div className="flex gap-2 items-center">
-                  <Sparkles className="animate-spin text-blue-400" size={20} />
-                  <span className="text-gray-400">AI is thinking...</span>
-                </div>
+              <div className="floating-card px-8 py-6 rounded-2xl flex items-center gap-4">
+                <div className="luxury-loader"></div>
+                <span className="text-gray-400 font-medium">P07 is thinking...</span>
               </div>
             </div>
           )}
@@ -133,22 +133,22 @@ const ChatPage = () => {
       </div>
 
       {/* Input */}
-      <div className="chat-theme px-8 py-4 border-t border-blue-500/30 relative z-10">
+      <div className="floating-card mx-4 mb-4 px-8 py-4 relative z-10">
         <div className="max-w-4xl mx-auto flex gap-4">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="Ask P07 anything from the universe..."
-            className="flex-1 cosmic-glow rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-500 transition bg-transparent"
+            onKeyPress={(e) => e.key === 'Enter' && !loading && sendMessage()}
+            placeholder="Ask P07 anything..."
+            className="flex-1 bg-transparent border-2 gold-border rounded-xl px-6 py-4 outline-none focus:border-yellow-500 transition text-white placeholder-gray-500"
             disabled={loading}
             data-testid="chat-input"
           />
           <button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
-            className="btn-primary px-10 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-luxury px-10 disabled:opacity-50 disabled:cursor-not-allowed"
             data-testid="send-btn"
           >
             <Send size={20} />
