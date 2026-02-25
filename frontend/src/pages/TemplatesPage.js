@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, FileText, Globe, Presentation } from 'lucide-react';
+import { ArrowLeft, FileText, Globe, Presentation, Sparkles } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -18,9 +18,7 @@ const TemplatesPage = () => {
 
   const loadTemplates = async () => {
     try {
-      // Initialize data first
       await axios.post(`${API}/init/data`);
-      
       const response = await axios.get(`${API}/templates`);
       setTemplates(response.data.templates);
     } catch (error) {
@@ -37,13 +35,15 @@ const TemplatesPage = () => {
   const categories = ['all', 'blog', 'website', 'presentation'];
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-8" data-testid="templates-page">
+    <div className="min-h-screen text-white p-8 relative" data-testid="templates-page">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <button onClick={() => navigate('/dashboard')} className="hover:text-blue-500 transition" data-testid="back-btn">
+          <button onClick={() => navigate('/dashboard')} className="hover:text-green-400 transition hover:scale-110" data-testid="back-btn">
             <ArrowLeft size={24} />
           </button>
-          <h1 className="text-4xl font-bold" style={{fontFamily: 'Chivo'}} data-testid="page-title">FP07 Templates</h1>
+          <h1 className="text-5xl font-bold glow-text flex items-center gap-3" style={{fontFamily: 'Chivo'}} data-testid="page-title">
+            <FileText size={48} /> FP07 Templates
+          </h1>
         </div>
 
         <div className="flex gap-4 mb-8" data-testid="category-filters">
@@ -51,7 +51,7 @@ const TemplatesPage = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-6 py-3 rounded-lg transition ${selectedCategory === cat ? 'bg-blue-600' : 'bg-gray-800 hover:bg-gray-700'}`}
+              className={`px-8 py-4 rounded-xl transition font-semibold ${selectedCategory === cat ? 'bg-gradient-to-r from-green-500 to-emerald-500 shadow-lg shadow-green-500/50' : 'cosmic-glow hover:scale-105'}`}
               data-testid={`category-${cat}-btn`}
             >
               {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -61,7 +61,7 @@ const TemplatesPage = () => {
 
         {loading ? (
           <div className="text-center py-20" data-testid="loading-indicator">
-            <div className="inline-block w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <div className="inline-block w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="templates-grid">
@@ -78,28 +78,28 @@ const TemplatesPage = () => {
 const TemplateCard = ({ template, index }) => {
   const getIcon = (category) => {
     switch(category) {
-      case 'blog': return <FileText size={32} />;
-      case 'website': return <Globe size={32} />;
-      case 'presentation': return <Presentation size={32} />;
-      default: return <FileText size={32} />;
+      case 'blog': return <FileText size={36} />;
+      case 'website': return <Globe size={36} />;
+      case 'presentation': return <Presentation size={36} />;
+      default: return <FileText size={36} />;
     }
   };
 
   return (
-    <div className="glass-effect p-6 rounded-xl tracing-border hover:border-blue-500/50 transition" data-testid={`template-${index}`}>
-      <div className="text-blue-500 mb-4" data-testid={`template-${index}-icon`}>
+    <div className="template-theme p-6 rounded-2xl cosmic-card group" data-testid={`template-${index}`}>
+      <div className="bg-gradient-to-br from-green-500 to-emerald-500 w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform" data-testid={`template-${index}-icon`}>
         {getIcon(template.category)}
       </div>
-      <h3 className="text-xl font-bold mb-2" style={{fontFamily: 'Chivo'}} data-testid={`template-${index}-name`}>
+      <h3 className="text-2xl font-bold mb-3" style={{fontFamily: 'Chivo'}} data-testid={`template-${index}-name`}>
         {template.name}
       </h3>
-      <p className="text-gray-400 mb-4" data-testid={`template-${index}-description`}>{template.description}</p>
-      <div className="flex gap-2">
-        <button className="btn-primary flex-1 py-2" data-testid={`template-${index}-preview-btn`}>
+      <p className="text-gray-300 mb-6" data-testid={`template-${index}-description`}>{template.description}</p>
+      <div className="flex gap-3">
+        <button className="flex-1 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl font-semibold hover:scale-105 transition shadow-lg shadow-green-500/50" data-testid={`template-${index}-preview-btn`}>
           Preview
         </button>
-        <button className="btn-secondary flex-1 py-2" data-testid={`template-${index}-use-btn`}>
-          Use Template
+        <button className="flex-1 py-3 cosmic-glow rounded-xl font-semibold hover:scale-105 transition" data-testid={`template-${index}-use-btn`}>
+          Use
         </button>
       </div>
     </div>
