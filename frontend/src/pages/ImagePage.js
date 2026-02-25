@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Sparkles, Download } from 'lucide-react';
+import { ArrowLeft, Sparkles, Download, Image as ImageIcon } from 'lucide-react';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -28,67 +28,75 @@ const ImagePage = () => {
       }
     } catch (error) {
       console.error('Image generation error:', error);
-      alert('Failed to generate image. Please try again.');
+      alert('Failed to generate image. Please check your Universal Key balance.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-8" data-testid="image-page">
+    <div className="min-h-screen text-white p-8 relative" data-testid="image-page">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <button onClick={() => navigate('/dashboard')} className="hover:text-blue-500 transition" data-testid="back-btn">
+          <button onClick={() => navigate('/dashboard')} className="hover:text-purple-400 transition hover:scale-110" data-testid="back-btn">
             <ArrowLeft size={24} />
           </button>
-          <h1 className="text-4xl font-bold" style={{fontFamily: 'Chivo'}} data-testid="page-title">SP07 Image Generation</h1>
+          <h1 className="text-5xl font-bold glow-text flex items-center gap-3" style={{fontFamily: 'Chivo'}} data-testid="page-title">
+            <ImageIcon size={48} /> SP07 Image Generation
+          </h1>
         </div>
 
-        <div className="glass-effect p-8 rounded-2xl mb-8">
+        <div className="image-theme p-8 rounded-3xl mb-8 cosmic-card">
           <div className="flex gap-4">
             <input
               type="text"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && generateImage()}
-              placeholder="Describe the image you want to create..."
-              className="flex-1 bg-gray-900 border border-white/10 rounded-lg px-6 py-4 outline-none focus:border-blue-500 transition"
+              placeholder="Describe the cosmic image you want to create..."
+              className="flex-1 cosmic-glow rounded-xl px-6 py-5 outline-none focus:ring-2 focus:ring-purple-500 transition text-lg bg-transparent"
               disabled={loading}
               data-testid="image-prompt-input"
             />
             <button
               onClick={generateImage}
               disabled={loading || !prompt.trim()}
-              className="btn-primary px-8 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="px-10 py-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 hover:scale-105 transition shadow-lg shadow-purple-500/50"
               data-testid="generate-btn"
             >
-              <Sparkles size={20} />
+              <Sparkles size={24} />
               Generate
             </button>
           </div>
         </div>
 
         {loading && (
-          <div className="glass-effect p-20 rounded-2xl text-center" data-testid="loading-indicator">
-            <div className="inline-block w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <p className="text-xl text-gray-400">Generating your image...</p>
+          <div className="image-theme p-20 rounded-3xl text-center cosmic-card" data-testid="loading-indicator">
+            <div className="inline-block w-20 h-20 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-6"></div>
+            <p className="text-2xl font-bold glow-text">Generating your cosmic image...</p>
+            <p className="text-gray-400 mt-2">This may take a moment</p>
           </div>
         )}
 
         {imageData && (
-          <div className="glass-effect p-8 rounded-2xl" data-testid="image-result">
-            <img
-              src={`data:${imageData.mime_type};base64,${imageData.image_full}`}
-              alt="Generated"
-              className="w-full rounded-lg mb-4"
-              data-testid="generated-image"
-            />
+          <div className="image-theme p-8 rounded-3xl cosmic-card" data-testid="image-result">
+            <div className="relative group">
+              <img
+                src={`data:${imageData.mime_type};base64,${imageData.image_full}`}
+                alt="Generated"
+                className="w-full rounded-2xl mb-6 shadow-2xl shadow-purple-500/30"
+                data-testid="generated-image"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
             <div className="flex justify-between items-center">
-              <p className="text-gray-400" data-testid="image-prompt">{prompt}</p>
+              <p className="text-gray-300 flex-1" data-testid="image-prompt">
+                <Sparkles className="inline" size={16} /> {prompt}
+              </p>
               <a
                 href={`data:${imageData.mime_type};base64,${imageData.image_full}`}
-                download="sp07-generated.png"
-                className="btn-primary flex items-center gap-2"
+                download="sp07-cosmic-creation.png"
+                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-bold flex items-center gap-2 hover:scale-105 transition shadow-lg shadow-purple-500/50"
                 data-testid="download-btn"
               >
                 <Download size={20} />
