@@ -86,25 +86,67 @@ const LearningPage = () => {
 };
 
 const TutorialCard = ({ tutorial, index }) => {
+  const [showTutorial, setShowTutorial] = useState(false);
+
   return (
-    <div className="learning-theme p-8 rounded-2xl cosmic-card group" data-testid={`tutorial-${index}`}>
-      <div className="flex items-start gap-6">
-        <div className="bg-gradient-to-br from-indigo-500 to-purple-500 w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform" data-testid={`tutorial-${index}-icon`}>
-          <BookOpen size={32} />
-        </div>
-        <div className="flex-1">
-          <h3 className="text-2xl font-bold mb-3" style={{fontFamily: 'Chivo'}} data-testid={`tutorial-${index}-title`}>
-            {tutorial.title}
-          </h3>
-          <p className="text-gray-300 mb-4" data-testid={`tutorial-${index}-description`}>{tutorial.description}</p>
-          <p className="text-sm text-gray-400 mb-6" data-testid={`tutorial-${index}-content`}>{tutorial.content}</p>
-          <button className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl font-semibold flex items-center gap-2 hover:scale-105 transition shadow-lg shadow-indigo-500/50" data-testid={`tutorial-${index}-start-btn`}>
-            <Play size={18} />
-            Start Tutorial
-          </button>
+    <>
+      <div className="learning-theme p-8 rounded-2xl cosmic-card group" data-testid={`tutorial-${index}`}>
+        <div className="flex items-start gap-6">
+          <div className="bg-gradient-to-br from-indigo-500 to-purple-500 w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform" data-testid={`tutorial-${index}-icon`}>
+            <BookOpen size={32} />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-2xl font-bold mb-3" style={{fontFamily: 'Chivo'}} data-testid={`tutorial-${index}-title`}>
+              {tutorial.title}
+            </h3>
+            <p className="text-gray-300 mb-4" data-testid={`tutorial-${index}-description`}>{tutorial.description}</p>
+            <p className="text-sm text-gray-400 mb-6" data-testid={`tutorial-${index}-content`}>{tutorial.content.substring(0, 100)}...</p>
+            <button 
+              onClick={() => setShowTutorial(true)}
+              className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl font-semibold flex items-center gap-2 hover:scale-105 transition shadow-lg shadow-indigo-500/50" 
+              data-testid={`tutorial-${index}-start-btn`}
+            >
+              <Play size={18} />
+              Start Tutorial
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Tutorial Modal */}
+      {showTutorial && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-8" onClick={() => setShowTutorial(false)}>
+          <div className="learning-theme p-8 rounded-3xl max-w-4xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-4xl font-bold glow-text flex items-center gap-3" style={{fontFamily: 'Chivo'}}>
+                <Sparkles size={32} /> {tutorial.title}
+              </h2>
+              <button onClick={() => setShowTutorial(false)} className="text-gray-400 hover:text-white text-3xl">×</button>
+            </div>
+            
+            <div className="mb-6 p-6 bg-indigo-500/20 rounded-xl border border-indigo-500/30">
+              <h3 className="text-xl font-bold mb-2 text-indigo-300">About this tutorial</h3>
+              <p className="text-gray-300">{tutorial.description}</p>
+            </div>
+
+            <div className="prose prose-invert max-w-none">
+              <div className="text-gray-200 whitespace-pre-wrap leading-relaxed text-lg">
+                {tutorial.content}
+              </div>
+            </div>
+
+            <div className="mt-8 flex gap-4">
+              <button 
+                onClick={() => setShowTutorial(false)}
+                className="flex-1 py-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl font-bold text-lg hover:scale-105 transition shadow-lg shadow-indigo-500/50"
+              >
+                Got it! Close Tutorial
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
